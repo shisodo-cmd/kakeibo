@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f7f5" />
+  <title>家計簿</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <header>
+    <div>
+      <div class="eyebrow">シンプル家計簿</div>
+      <h1 id="pageTitle">ホーム</h1>
+    </div>
+    <button class="iconBtn" id="monthBtn" aria-label="月を選択">◀︎ <span id="monthLabel"></span> ▶︎</button>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <div class="card hero">
+        <span>今月の支出合計</span>
+        <strong id="monthTotal">¥0</strong>
+        <small id="monthCompare">先月との比較 —</small>
+      </div>
+      <div class="sectionHead"><h2>カテゴリー別</h2></div>
+      <div id="categorySummary" class="stack"></div>
+      <div class="sectionHead"><h2>最近の支出</h2></div>
+      <div id="recentList" class="stack"></div>
+    </section>
+
+    <section id="input" class="page">
+      <form id="expenseForm" class="card form">
+        <label>日付<input id="date" type="date" required></label>
+        <label>金額<input id="amount" type="number" inputmode="numeric" min="1" placeholder="0" required></label>
+        <label>店名・内容<input id="merchant" type="text" placeholder="スーパー、ガソリンなど" required></label>
+        <label>カテゴリー
+          <select id="category">
+            <option>食費</option><option>日用品</option><option>交通</option>
+            <option>外食</option><option>教育</option><option>医療</option>
+            <option>娯楽</option><option>住居</option><option>その他</option>
+          </select>
+        </label>
+        <label>支払方法
+          <select id="payment">
+            <option>クレジットカード</option><option>現金</option>
+            <option>電子マネー</option><option>口座振替</option><option>その他</option>
+          </select>
+        </label>
+        <label>メモ（任意）<textarea id="memo" rows="3"></textarea></label>
+        <button class="primary" type="submit">支出を保存</button>
+      </form>
+      <p class="note">データはこの端末のブラウザ内に保存されます。</p>
+    </section>
+
+    <section id="history" class="page">
+      <div class="filters card">
+        <input id="search" type="search" placeholder="店名・メモを検索">
+        <select id="filterCategory"><option value="">すべてのカテゴリー</option></select>
+        <select id="filterPayment"><option value="">すべての支払方法</option></select>
+      </div>
+      <div id="historyList" class="stack"></div>
+    </section>
+
+    <section id="analysis" class="page">
+      <div class="card">
+        <div class="tabs">
+          <button class="analysisTab active" data-mode="category">カテゴリー</button>
+          <button class="analysisTab" data-mode="payment">支払方法</button>
+        </div>
+        <div id="analysisTotal" class="analysisTotal"></div>
+        <div id="analysisBars" class="bars"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav>
+    <button data-page="home" class="active"><span>⌂</span>ホーム</button>
+    <button data-page="input"><span>＋</span>入力</button>
+    <button data-page="history"><span>≡</span>履歴</button>
+    <button data-page="analysis"><span>◔</span>分析</button>
+  </nav>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
