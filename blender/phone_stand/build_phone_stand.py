@@ -247,14 +247,15 @@ def build():
     arm_holes = [circle(0, cy, 11.5),
                  arc_slot(0, cy, 23.0, math.radians(36), 3.4, math.pi / 2),
                  arc_slot(0, cy, 23.0, math.radians(36), 3.4, -math.pi / 2)]
-    arm = plate("Arm", arm_outline, arm_holes, alu)
+    # 折りたたみ時にホルダーと重ならないよう、アームはヒンジ筒の背面側に寄せる
+    arm = plate("Arm", arm_outline, arm_holes, alu, z_off=HINGE_R - T / 2)
     link([arm], coll, hl)
     link(knuckles("Arm_Knuckle_Lower", hinge, outer=False), coll, arm)
     upper = knuckles("Arm_Knuckle_Upper", hinge, outer=True)
     for k in upper:
         k.location.y = al
     link(upper, coll, arm)
-    stopper = cylinder_z("Arm_Stopper", 2.6, 0.6, (0, al - 17, T / 2 + 0.3), rubber)
+    stopper = cylinder_z("Arm_Stopper", 2.6, 0.6, (0, al - 17, HINGE_R + 0.3), rubber)
     link([stopper], coll, arm)
 
     # --- 上ヒンジ
